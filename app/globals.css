@@ -176,16 +176,16 @@
     @apply max-w-7xl px-5 mx-auto w-full;
   }
   .container {
-    @apply pt-[94px] pb-18 min-h-screen;
+    @apply pt-23.5 pb-18 min-h-screen;
   }
   .navItem {
     @apply px-1 sm:px-3 text-sm sm:text-base font-medium flex items-center cursor-pointer text-(--text-primary);
   }
   .input-reset {
-    @apply h-12 border-none lg:!text-lg shadow-none focus:outline-none focus-visible:ring-0;
+    @apply h-12 border-none lg:text-lg! shadow-none focus:outline-none focus-visible:ring-0;
   }
   .label {
-    @apply text-lg mb-1 !font-medium;
+    @apply text-lg mb-1 font-medium!;
   }
   .auth-wrapper {
     @apply max-w-7xl px-5 mx-auto w-full min-h-screen pt-20 flex flex-col items-center justify-center py-10;
@@ -197,10 +197,10 @@
     @apply py-18 min-h-screen max-w-7xl px-5 mx-auto w-full flex flex-col pb-12 items-center container;
   }
   .page-title {
-    @apply !text-3xl font-bold text-center;
+    @apply text-3xl! font-bold text-center;
   }
   .page-description {
-    @apply !mt-3 text-center text-lg;
+    @apply mt-3! text-center text-lg;
   }
   .new-book {
     @apply max-w-7xl px-5 mx-auto w-full space-y-6 py-18 min-h-screen;
@@ -212,7 +212,7 @@
     @apply relative z-20 flex flex-col justify-center items-center p-7;
   }
   .form-btn {
-    @apply !w-full h-14 rounded-lg bg-[#663820] cursor-pointer hover:bg-[#7a4528] text-xl text-white font-bold transition-colors;
+    @apply w-full! h-14 rounded-lg bg-[#663820] cursor-pointer hover:bg-[#7a4528] text-xl text-white font-bold transition-colors;
     font-family: 'IBM Plex Serif', serif;
   }
   .loading-wrapper {
@@ -240,13 +240,13 @@
     @apply w-2 h-2 text-(--text-secondary) bg-(--success) rounded-full animate-pulse;
   }
   .select-trigger {
-    @apply !w-full !h-12 rounded-lg;
+    @apply w-full! h-12! rounded-lg;
   }
   .volume {
-    @apply !ml-auto w-4 h-4 animate-pulse text-(--accent-warm);
+    @apply ml-auto! w-4 h-4 animate-pulse text-(--accent-warm);
   }
   .select-content {
-    @apply rounded-xl border border-(--border-subtle) max-h-[400px] shadow-(--shadow-soft);
+    @apply rounded-xl border border-(--border-subtle) max-h-100 shadow-(--shadow-soft);
   }
   .select-item {
     @apply hover:rounded-lg font-medium text-lg;
@@ -293,10 +293,10 @@
     @apply border-(--color-brand);
   }
   .page-title-xl {
-    @apply text-4xl md:text-5xl font-semibold text-black tracking-tight leading-[54px] font-serif;
+    @apply text-4xl md:text-5xl font-semibold text-black tracking-tight leading-13.5 font-serif;
   }
   .section-title {
-    @apply text-2xl md:text-[30px] font-semibold text-black leading-[30px] font-serif;
+    @apply text-2xl md:text-[30px] font-semibold text-black leading-7.5 font-serif;
   }
   .book-title-lg {
     @apply text-[30px] font-semibold text-black leading-9 mb-2 font-serif;
@@ -390,7 +390,7 @@
     @apply flex items-center gap-2 bg-[#f3e4c7] rounded-xl p-3 mb-3;
   }
   .vapi-transcript-wrapper {
-    @apply min-h-[400px] max-h-[60vh] flex flex-col;
+    @apply min-h-100 max-h-[60vh] flex flex-col;
   }
   .vapi-cover-wrapper {
     @apply relative shrink-0;
@@ -399,17 +399,17 @@
     @apply hidden;
   }
   .vapi-cover-image {
-    @apply relative w-[130px] h-[195px] sm:w-[162px] sm:h-60 rounded-lg object-cover;
+    @apply relative w-32.5 h-48.75 sm:w-40.5 sm:h-60 rounded-lg object-cover;
     box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
   }
   .vapi-mic-wrapper {
     @apply absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2;
   }
   .vapi-pulse-ring {
-    @apply absolute inset-0 w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] bg-white rounded-full opacity-50 animate-ping;
+    @apply absolute inset-0 w-12.5 h-12.5 sm:w-15 sm:h-15 bg-white rounded-full opacity-50 animate-ping;
   }
   .vapi-mic-btn {
-    @apply relative w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] cursor-pointer rounded-full flex items-center justify-center transition-all duration-300 border-0 bg-white;
+    @apply relative w-12.5 h-12.5 sm:w-15 sm:h-15 cursor-pointer rounded-full flex items-center justify-center transition-all duration-300 border-0 bg-white;
 
     &:hover {
       transform: scale(1.05);
@@ -463,10 +463,10 @@
     font-family: 'IBM Plex Serif', serif;
   }
   .vapi-stat-box {
-    @apply bg-white rounded-lg px-2.5 py-5 min-w-[225px] text-center;
+    @apply bg-white rounded-lg px-2.5 py-5 min-w-56.25 text-center;
   }
   .vapi-stat-box-sm {
-    @apply bg-white rounded-lg px-2.5 py-5 min-w-[225px] text-center;
+    @apply bg-white rounded-lg px-2.5 py-5 min-w-56.25 text-center;
   }
   .vapi-stat-label {
     @apply text-lg font-medium text-[#212a3b] mb-3;
@@ -490,10 +490,10 @@
     @apply flex flex-col items-center text-center lg:items-center lg:text-left lg:flex-row lg:justify-between gap-4 lg:gap-6 w-full;
   }
   .library-hero-text {
-    @apply flex-1 max-w-full lg:max-w-[400px] flex flex-col gap-3 lg:gap-4 items-center lg:items-start justify-center z-10;
+    @apply flex-1 max-w-full lg:max-w-100 flex flex-col gap-3 lg:gap-4 items-center lg:items-start justify-center z-10;
   }
   .library-hero-title {
-    @apply text-[26px] md:text-3xl lg:text-4xl font-semibold text-black tracking-tight leading-8 md:leading-[42px] font-serif;
+    @apply text-[26px] md:text-3xl lg:text-4xl font-semibold text-black tracking-tight leading-8 md:leading-10.5 font-serif;
   }
   .library-hero-description {
     @apply text-sm md:text-base text-[#3d485e] leading-5 md:leading-6;
@@ -502,7 +502,7 @@
     @apply flex items-center justify-center mt-2 lg:hidden;
   }
   .library-hero-illustration-desktop {
-    @apply hidden lg:flex items-center justify-center flex-1 max-w-[400px];
+    @apply hidden lg:flex items-center justify-center flex-1 max-w-100;
   }
   .library-cta-primary {
     @apply inline-flex items-center justify-center gap-2 bg-white text-(--text-primary) px-5 py-3 rounded-lg font-bold text-base md:text-xl transition-all w-full lg:w-fit;
@@ -601,7 +601,7 @@
     @apply inline-block w-0.5 h-5 ml-1 bg-black animate-pulse;
   }
   .transcript-empty {
-    @apply flex flex-col items-center justify-center min-h-[350px] text-center flex-1;
+    @apply flex flex-col items-center justify-center min-h-87.5 text-center flex-1;
   }
   .transcript-empty-text {
     @apply text-(--text-primary) text-lg font-bold;
@@ -659,17 +659,17 @@
     @apply absolute -left-1 top-2 bottom-2 w-3 bg-linear-to-r from-[#8B7355] to-[#A08060] rounded-l-md z-0;
   }
   .book-card-cover-wrapper {
-    @apply relative bg-white rounded-xl overflow-hidden flex items-center justify-center h-[205px] md:h-60;
+    @apply relative bg-white rounded-xl overflow-hidden flex items-center justify-center h-51.25 md:h-60;
   }
   .book-card-cover {
-    @apply w-auto h-[170px] md:h-[200px] object-cover rounded-lg;
+    @apply w-auto h-42.5 md:h-50 object-cover rounded-lg;
     box-shadow: var(--shadow-book);
   }
   .book-card-meta {
     @apply mt-4 md:mt-5 flex-1 flex flex-col gap-1;
   }
   .book-card-title {
-    @apply font-bold text-[#212a3b] line-clamp-1 text-base md:text-xl leading-[22px] md:leading-[30px];
+    @apply font-bold text-[#212a3b] line-clamp-1 text-base md:text-xl leading-5.5 md:leading-7.5;
     font-family: 'IBM Plex Serif', serif;
   }
   .book-card-author {
@@ -680,7 +680,7 @@
      UPLOAD FORM COMPONENT
      =========================================== */
   .upload-dropzone {
-    @apply flex flex-col items-center justify-center h-[165px] bg-white rounded-sm cursor-pointer transition-all;
+    @apply flex flex-col items-center justify-center h-41.25 bg-white rounded-sm cursor-pointer transition-all;
 
     &:hover {
       @apply bg-gray-50;
