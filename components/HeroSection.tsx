@@ -26,7 +26,7 @@ export default async function HeroSection() {
   await auth();
 
   return (
-      <section className="wrapper">
+      <section className="wrapper mb-10 md:mb-16">
         <div className="library-hero-card">
           <div className="library-hero-content">
             <div className="library-hero-text">
