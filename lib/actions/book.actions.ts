@@ -34,7 +34,8 @@ export const getAllBooks = async (search?: string) => {
     } catch (e) {
         console.error('Error connecting to database', e);
         return {
-            success: false, error: e
+            success: false,
+            error: e instanceof Error ? e.message : 'Failed to load books',
         }
     }
 }
@@ -94,8 +95,6 @@ export const createBook = async (data: CreateBook) => {
 
         // const plan = await getUserPlan();
         // const limits = PLAN_LIMITS[plan];
-
-        const bookCount = await Book.countDocuments({ clerkId: userId });
 
         // if (bookCount >= limits.maxBooks) {
         //     const { revalidatePath } = await import("next/cache");

@@ -47,8 +47,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         const message = e instanceof Error ? e.message : "An unknown error occurred";
         const status = message.includes('Unauthorized') ? 401 : 500;
         const isDevelopment = process.env.NODE_ENV !== 'production';
+        const isConfigError = message.includes('Missing blob token');
         console.error('Upload error', e);
-        const clientMessage = status === 401 ? 'Unauthorized' : isDevelopment ? message : 'Upload failed';
+        const clientMessage = status === 401 ? 'Unauthorized' : (isDevelopment || isConfigError) ? message : 'Upload failed';
         return NextResponse.json({ error: clientMessage }, { status });
     }
 }
