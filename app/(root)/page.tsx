@@ -3,6 +3,8 @@ import HeroSection from '@/components/HeroSection';
 import { getAllBooks } from '@/lib/actions/book.actions';
 import { TriangleAlert } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 async function page() {
   const bookResults = await getAllBooks();
   const books = bookResults.success ? bookResults.data ?? [] : [];
