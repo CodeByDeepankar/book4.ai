@@ -5,9 +5,10 @@ import VoiceSession from '@/database/models/voice-session.model';
 import BookConversation from '@/database/models/book-conversation.model';
 import { connectToDB } from '@/database/mongoose';
 import { deleteConversationMemoriesForUserBook } from '@/lib/conversation-memory';
+import { getCurrentBillingPeriodStart, getNextBillingPeriodStart } from '@/lib/subscription-constants';
+import { getAuthenticatedUserPlan } from '@/lib/subscription.server';
+import { formatPlanName } from '@/lib/subscription-utils';
 import mongoose from 'mongoose';
-
-const DEFAULT_MAX_DURATION_MINUTES = 15;
 
 type StartVoiceSessionResult =
   | { success: true; sessionId: string; maxDurationMinutes: number }
@@ -21,18 +22,20 @@ type ClearBookSessionDataResult =
   | { success: true; deletedSessions: number; deletedConversation: boolean; deletedMemories: number }
   | { success: false; error: string };
 
-const getBillingPeriodStart = (date: Date = new Date()) => {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1, 0, 0, 0, 0));
-};
-
 export const startVoiceSession = async (
   clerkId: string,
   bookId: string,
 ): Promise<StartVoiceSessionResult> => {
   try {
-    const { userId } = await auth();
+    const subscription = await getAuthenticatedUserPlan();
 
-    if (!userId || userId !== clerkId) {
+    if (!subscription.success) {
+      return { success: false, error: 'Unauthorized' };
+    }
+
+    const { userId, plan, limits } = subscription;
+
+    if (userId !== clerkId) {
       return { success: false, error: 'Unauthorized' };
     }
 
@@ -42,18 +45,39 @@ export const startVoiceSession = async (
 
     await connectToDB();
 
+    const billingPeriodStart = getCurrentBillingPeriodStart();
+    const nextBillingPeriodStart = getNextBillingPeriodStart();
+
+    if (Number.isFinite(limits.maxSessionsPerMonth)) {
+      const sessionsUsedThisMonth = await VoiceSession.countDocuments({
+        clerkId: userId,
+        startedAt: {
+          $gte: billingPeriodStart,
+          $lt: nextBillingPeriodStart,
+        },
+      });
+
+      if (sessionsUsedThisMonth >= limits.maxSessionsPerMonth) {
+        return {
+          success: false,
+          error: `You have reached the ${formatPlanName(plan)} plan limit of ${limits.maxSessionsPerMonth} voice sessions this month. Upgrade to continue.`,
+          isBillingError: true,
+        };
+      }
+    }
+
     const session = await VoiceSession.create({
       clerkId: userId,
       bookId: new mongoose.Types.ObjectId(bookId),
       startedAt: new Date(),
       durationSeconds: 0,
-      billingPeriodStart: getBillingPeriodStart(),
+      billingPeriodStart,
     });
 
     return {
       success: true,
       sessionId: String(session._id),
-      maxDurationMinutes: DEFAULT_MAX_DURATION_MINUTES,
+      maxDurationMinutes: limits.maxDurationPerSession,
     };
   } catch (error) {
     console.error('Error starting voice session', error);

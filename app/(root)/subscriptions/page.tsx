@@ -1,11 +1,17 @@
+import { PricingTable } from '@clerk/nextjs';
+
 export default function SubscriptionsPage() {
   return (
-    <main className="wrapper container">
-      <section className="mx-auto max-w-3xl rounded-xl border border-(--border-subtle) bg-white p-8 shadow-soft">
-        <h1 className="page-title-xl">Pricing</h1>
-        <p className="subtitle mt-4">
-          Subscription plans are being set up. Please check back soon.
+    <main className="clerk-subscriptions">
+      <section className="w-full max-w-6xl">
+        <h1 className="page-title">Choose Your Plan</h1>
+        <p className="page-description">
+          Upgrade to unlock more books, longer sessions, and expanded monthly usage.
         </p>
+
+        <div className="clerk-pricing-table-wrapper mt-10">
+          <PricingTable />
+        </div>
       </section>
     </main>
   );
