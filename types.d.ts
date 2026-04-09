@@ -49,6 +49,31 @@ export interface IVoiceSession extends Document {
     updatedAt: Date;
 }
 
+export interface IConversationMessage {
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+    createdAt: Date;
+}
+
+export interface IBookConversation extends Document {
+    _id: string;
+    clerkId: string;
+    bookId: Types.ObjectId;
+    messages: IConversationMessage[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface IBookConversationMemory extends Document {
+    _id: string;
+    userIdentifier: string;
+    bookId: Types.ObjectId;
+    callId?: string;
+    summary: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 // ============================================
 // FORM & INPUT TYPES
 // ============================================
