@@ -1,9 +1,9 @@
 'use client';
 
-import { useAuth, useUser } from "@clerk/nextjs";
-import { PLANS, PLAN_LIMITS, PlanType } from "../lib/subscription-constants";
+import { useAuth, useUser } from '@clerk/nextjs';
 
-type ProductOrPlanCheck = (params: { product?: string; plan?: string }) => boolean;
+import { PLAN_LIMITS, PLANS, type PlanType } from '@/lib/subscription-constants';
+import { getPlanFromHas, getPlanFromMetadata, type ProductOrPlanCheck } from '@/lib/subscription-utils';
 
 export const useSubscription = () => {
     const { has, isLoaded: isAuthLoaded } = useAuth();
@@ -20,28 +20,17 @@ export const useSubscription = () => {
         };
     }
 
-    let plan: PlanType = PLANS.FREE;
+    const planFromHas = getPlanFromHas(hasProductOrPlan);
+    const metadataPlan = getPlanFromMetadata(user?.publicMetadata);
 
-    // 1. First Check: Clerk's `has` helper from useAuth
-    if (hasProductOrPlan?.({ product: 'pro' }) || hasProductOrPlan?.({ plan: 'pro' })) {
-        plan = PLANS.PRO;
-    } else if (hasProductOrPlan?.({ product: 'standard' }) || hasProductOrPlan?.({ plan: 'standard' })) {
-        plan = PLANS.STANDARD;
-    } 
-    // 2. Second Check: Fallback to user public metadata if `has` fails (caching issue)
-    else {
-        const metadataPlan = (user?.publicMetadata?.plan || user?.publicMetadata?.billingPlan)?.toString().toLowerCase();
-        
-        if (metadataPlan === 'pro') {
-            plan = PLANS.PRO;
-        } else if (metadataPlan === 'standard') {
-            plan = PLANS.STANDARD;
-        }
+    let plan: PlanType = planFromHas ?? PLANS.FREE;
+    if (plan === PLANS.FREE && metadataPlan) {
+        plan = metadataPlan;
     }
 
     return {
         plan,
         limits: PLAN_LIMITS[plan],
-        isLoaded: true
+        isLoaded: true,
     };
 };
